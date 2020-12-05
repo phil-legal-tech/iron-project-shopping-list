@@ -1,0 +1,17 @@
+{{#if username}}
+
+<h1>Hi, {{username}}!</h1>
+
+{{/if}}
+
+<img src="avatar.png" alt="Avatar" class="avatar">
+
+<ul>
+  <li><a href="/concept">The Concept</a></li>
+  <li><b><a href="/products?curent=1">All Products</a></b></li>
+
+</ul>
+
+<form action="/logout" method="post">
+    <button type="submit">LOGOUT</button>
+</form>

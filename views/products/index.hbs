@@ -1,0 +1,51 @@
+<h2>Products</h2>
+
+<form action="/products" method="get">
+  <input type="text" name="search" id="search" placeholder="Search for products..">
+  <button type="submit">Search</button>
+</form>
+
+<table id="productTable">
+  <tr>
+    <th>
+      Brand
+    </th>
+    <th>
+      Name
+    </th>
+    <th>
+      Details
+    </th>
+    <th>
+      Delete
+    </th>
+  </tr>
+  {{#each products}}
+
+  <tr>
+    <td>
+      <p><b>{{this.brand}}</b></p>
+    </td>
+    <td>
+      <p>{{this.name}}</p>
+    </td>
+    <td>
+      <p><a href="/products/{{this._id}}">( Details )</a></p>
+    </td>
+    <td>
+      <p>
+      <form action="products/{{this._id}}/delete" method="post"><button type="submit">Delete</button></form></a></p>
+    </td>
+  </tr>
+
+  {{/each}}
+
+</table>
+{{#if nextButton}}
+<a href="/products?curent={{curentPage}}">next</a>
+{{else}}
+<a href="/products?curent=1">Back to all</a>
+{{/if}}
+<p><b><a href="/products/new">( Create a new product )</a></b></p>
+
+<p><b><a href="/protected">( Back home )</a></b></p>

@@ -1,0 +1,38 @@
+<h2>Product Details</h2>
+
+<h3><b>{{name}}</b></h3>
+<table>
+  <tr>
+    <td>
+      <p><img src="{{image}}" alt="product image"></p>
+    </td>
+    <td>
+      <table>
+        <tr>
+          <td>brand:</td>
+          <td>{{brand}}</td>
+        </tr>
+        <tr>
+          <td>weight:</td>
+          <td>{{weight}}</td>
+        </tr>
+        <tr>
+          <td>price:</td>
+          <td>{{price}} EUR</td>
+        </tr>
+        <tr>
+          <td>category:</td>
+          <td>{{category}}</td>
+        </tr>
+        <tr>
+          <td>
+            <p><button><a href="{{link}}">Link to Kaufland Page</a></button></p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<p><a href="/products">Back</a></p>
+<p><a href="/products/{{this._id}}/edit">Edit</a></p>
+<p><b><a href="/protected">( Back to Protected Page )</a></b></p>

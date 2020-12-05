@@ -10,8 +10,15 @@ const logger       = require('morgan');
 const path         = require('path');
 
 
+// we added
+const session = require('express-session');
+
+// we added
+const MongoStore = require('connect-mongo')(session);
+
+
 mongoose
-  .connect('mongodb://localhost/shoping-list', {useNewUrlParser: true})
+  .connect('mongodb://localhost/shopping-list', {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -38,6 +45,19 @@ app.use(require('node-sass-middleware')({
   sourceMap: true
 }));
       
+// we added
+app.use(
+  session({
+    secret: 'doesnt-matter',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 * 60 }, // 1 hour
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection,
+      ttl: 60 * 60 * 24 // 60sec * 60min * 24h => 1 day
+    })
+  })
+);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -53,6 +73,9 @@ app.locals.title = 'Express - Generated with IronGenerator';
 
 const index = require('./routes/index');
 app.use('/', index);
+
+const productIndex = require('./routes/products');
+app.use('/', productIndex);
 
 
 module.exports = app;
