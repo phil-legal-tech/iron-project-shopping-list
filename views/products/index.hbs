@@ -36,16 +36,20 @@
       <p>
       <form action="products/{{this._id}}/delete" method="post"><button type="submit">Delete</button></form></a></p>
     </td>
+    <td>
+      <p>
+      <form action="products/{{this._id}}/add" method="post"><button type="submit">ADD</button></form></a></p>
+    </td>
   </tr>
 
   {{/each}}
 
 </table>
-{{#if nextButton}}
-<a href="/products?curent={{curentPage}}">next</a>
-{{else}}
-<a href="/products?curent=1">Back to all</a>
-{{/if}}
+
+<a href="/products?curent={{curentPage}}&search={{currentSearchTerm}}">next</a>
+
 <p><b><a href="/products/new">( Create a new product )</a></b></p>
+
+<p><b><a href="/products/shoppinglist">( To your shoppinglist )</a></b></p>
 
 <p><b><a href="/protected">( Back home )</a></b></p>

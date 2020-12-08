@@ -1,7 +1,7 @@
 const express = require('express');
 const { product } = require('puppeteer');
 const Product = require('../models/Product.model');
-
+const User = require('../models/User.model');
 
 const router = express.Router();
 
@@ -11,23 +11,63 @@ router.get('/products', (req, res, next) => {
 
   let search = req.query.search
   let curentPage = parseInt(req.query.curent)
+  if (!curentPage) { curentPage = 0 }
 
   if (search == undefined) {
     // let curentPage = parseInt(req.query.curent)
     Product.find().limit(10).skip(curentPage * 10).sort({ brand: 1 }).then((productFromDB) => {
       // console.log(productFromDB)
-      res.render('products/index', { products: productFromDB, curentPage: curentPage + 1, nextButton: true })
+      res.render('products/index', { products: productFromDB, curentPage: curentPage + 1 })
     })
       .catch(error => `Error while creating a new product: ${error}`);
   } else {
-    Product.find({ $or: [{ brand: search }, { name: search }] }).limit(20).skip(curentPage * 10).sort({ brand: 1 }).then((productFromDB) => {
+    Product.find({ $or: [{ brand: { $regex: ".*" + search + ".*", $options: "i" } }, { name: { $regex: ".*" + search + ".*", $options: "i" } }] }).limit(10).skip(curentPage * 10).sort({ brand: 1 }).then((productFromDB) => {
       // console.log(productFromDB)
-      res.render('products/index', { products: productFromDB, curentPage: curentPage + 1, nextButton: false })
+      res.render('products/index', { products: productFromDB, curentPage: curentPage + 1, currentSearchTerm: search })
     })
   }
 });
 
-//display product details
+//diplay all products on your shopping list
+
+// router.get('/products/shoppinglist', (req, res, next) => {
+
+//   const { id } = req.params;
+
+//   User.findById(id).populate('brand')
+//     .then(productsFromDB => {
+//       // console.log(droneToEdit);
+//       res.render('products/shoppinglist', {shoppinglist: productsFromDB});
+//     })
+//     .catch(error => console.log(`Error while getting a single product for edit: ${error}`));
+// });
+
+router.get('/products/shoppinglist', (req, res, next) => {
+  User.findOne({ _id: req.session.user._id })
+    .populate('shoppinglist')
+    .then(user => {
+      console.log(user)
+      res.render('products/shoppinglist', { shoppinglist: user.shoppinglist })
+    })
+
+});
+
+//create new product(s)
+
+router.get('/products/new', (req, res) => res.render('products/new'));
+
+
+router.post('/products/new', (req, res) => {
+  console.log(req.body);
+  const { name, brand, price, weight, image, link, category } = req.body;
+
+  Product.create({ name, brand, price, weight, image, link, category })
+    .then(() => res.redirect('/products'))
+    .catch(error => `Error while creating a new product: ${error}`);
+});
+
+
+// //display product details
 router.get('/products/:id', (req, res, next) => {
 
   const { id } = req.params;
@@ -44,7 +84,7 @@ router.get('/products/:id/edit', (req, res, next) => {
 
   const { id } = req.params;
 
-  Product.findById(id).populate('celebrity')
+  Product.findById(id)
     .then(productToEdit => {
       console.log(productToEdit);
       res.render('products/edit', productToEdit);
@@ -65,44 +105,48 @@ router.post('/products/:id/edit', (req, res, next) => {
     .catch(error => console.log(`Error while updating a single product: ${error}`));
 });
 
-//create new product(s)
+//delete product from products list
 
-router.get('/products/new', (req, res) => {
+router.post('/products/:id/delete', (req, res, next) => {
+  const { id } = req.params;
 
-  if (!req.session.user) {
-    res.redirect('/login')
-  } else {
-    Product.find().then((productsArray) => {
-      res.render('products/new', { newProductsArray: productsArray });
-    })
-  }
-})
-
-router.post('/products', (req, res, next) => {
-  console.log(req.body);
-  const { name, brand, price, weight, category } = req.body;
-
-  Product.create({ name, brand, price, weight, category, userID: req.session.user._id })
-    // .then(productFromDB => {
-    //     return User.findByIdAndUpdate(celebrities, { $push: { posts: productFromDB._id } });
-    // })
-    .then(() => res.redirect('index'))
-  //   .catch(error => `Error while creating a new movie: ${error}`, res.redirect('/movies/new'));
+  Product.findByIdAndRemove(id)
+    .then(() => res.redirect('/products'))
+    .catch(error => console.log(`Error while deleting a product: ${error}`));
 });
 
 
-//delete product from products list
+//add an item to the shopping list
 
-// router.post('/movies/:id/delete', (req, res, next) => {
-//   const { id } = req.params;
+router.post('/products/:id/add', (req, res, next) => {
+  const { id } = req.params;
+  console.log('SESSION =====> ', req.session);
 
-//   Movie.findByIdAndRemove(id)
-//     .then(() => res.redirect('/movies'))
-//     .catch(error => console.log(`Error while deleting a movie: ${error}`));
-// });
+  User.findByIdAndUpdate(req.session.user._id, { $push: { shoppinglist: id } })
+    .then((result) => {
+      console.log("result ======>", result)
+      res.redirect('/products')
+    })
+    .catch(error => console.log(`Error while adding a product: ${error}`));
+});
 
+//delete an item to the shopping list
+
+router.post('/products/shoppinglist/:id/delete', (req, res, next) => {
+  const { id } = req.params;
+  console.log('SESSION =====> ', req.session);
+
+  User.findByIdAndUpdate(req.session.user._id, { $pull: { shoppinglist: id } })
+    .then((result) => {
+      console.log("result ======>", result)
+      res.redirect('/products/shoppinglist')
+    })
+    .catch(error => console.log(`Error while adding a product: ${error}`));
+});
 
 //display shopping list
+
+
 
 //delete product from shopping list
 

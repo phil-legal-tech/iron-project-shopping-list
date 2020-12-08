@@ -14,6 +14,9 @@ const userSchema = new Schema(
         },
         passwordHash: { type: String, required: true },
         // avatar:       { type: String, enum: ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef'] },
+        shoppinglist: [
+            { type: Schema.Types.ObjectId, ref: 'Product' }
+        ],
     },
     {
         timestamps: true

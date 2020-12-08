@@ -1,7 +1,6 @@
 <h2>Be a product designer</h2>
 
-<form action="/products" method="post">
-
+<form action="/products/new" method="post">
 
   <label for="brand-input">Brand:</label>
   <input type="text" name="brand" id="brand-input" />
@@ -14,6 +13,12 @@
 
   <label for="weight-input">Weight:</label>
   <input type="text" name="weight" id="weight-input" />
+
+  <label for="image-input">Image:</label>
+  <input type="text" name="image" id="image-input" />
+  
+  <label for="link-input">Link:</label>
+  <input type="text" name="link" id="link-input" />
 
   <label for="Category-input">Category:</label>
   <input type="text" name="Category" id="Category-input" />
@@ -31,4 +36,4 @@
 
 </form>
 
-<p><b><a href="/">( Back home )</a></b></p>
+<p><b><a href="/products">( Back home )</a></b></p>
