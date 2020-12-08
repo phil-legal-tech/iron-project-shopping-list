@@ -32,7 +32,7 @@ router.get('/products', (req, res, next) => {
 
 router.get('/products/shoppinglist', (req, res, next) => {
   User.findOne({ _id: req.session.user._id })
-    .populate('shoppinglist')
+    .populate({ path: 'shoppinglist', options:  { sort: { category: 1 } }})
     .then(user => {
       console.log(user)
       res.render('products/shoppinglist', { shoppinglist: user.shoppinglist })
@@ -112,7 +112,7 @@ router.post('/products/:id/add', (req, res, next) => {
   User.findByIdAndUpdate(req.session.user._id, { $push: { shoppinglist: id } })
     .then((result) => {
       console.log("result ======>", result)
-      res.redirect(`/products?curent=${req.query.curent}&search=${req.query.search}`)
+      res.redirect(`/products?curent=${Number(req.query.curent) - 1}&search=${req.query.search}`)
     })
     .catch(error => console.log(`Error while adding a product: ${error}`));
 });
