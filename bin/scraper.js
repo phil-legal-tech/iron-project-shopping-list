@@ -4,11 +4,14 @@ const request = require('request-promise')
 const srcset = require('srcset')
 const url = require('url')
 const ProductModel = require('../models/Product.model')
+const DB_NAME = 'shopping-list';
 
 const baseUrl = `https://www.kaufland.de/sortiment/das-sortiment.html`
 
 mongoose
-  .connect('mongodb+srv://Phil_for_law:PHa0tgdAuj0JlYfs@cluster0.hbm6a.mongodb.net/shoppinglist?retryWrites=true&w=majority', { useNewUrlParser: true })
+
+.connect(`mongodb://localhost/${DB_NAME}`, { useNewUrlParser: true })
+// .connect('mongodb+srv://Phil_for_law:PHa0tgdAuj0JlYfs@cluster0.hbm6a.mongodb.net/shoppinglist?retryWrites=true&w=majority', { useNewUrlParser: true })
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })

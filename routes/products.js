@@ -131,37 +131,6 @@ router.post('/products/shoppinglist/:id/delete', (req, res, next) => {
     .catch(error => console.log(`Error while adding a product: ${error}`));
 });
 
-//display shopping list
-
-
-
-//delete product from shopping list
-
-// router.post('/movies/:id/delete', (req, res, next) => {
-//   const { id } = req.params;
-
-//   Movie.findByIdAndRemove(id)
-//     .then(() => res.redirect('/movies'))
-//     .catch(error => console.log(`Error while deleting a movie: ${error}`));
-// });
-
-
-
-//favorite list? add just what you need oder edit
-// router.get('/movies/usermovies', (req, res, next) => {
-//   Movie.find({ userID: req.session.user._id }).then((productFromDB) => {
-//     // let userMovies =[]
-//     // productFromDB.forEach(movie=>{
-
-//     //     if(movie.userID == req.session.user._id){
-//     //         userMovies.push(movie)
-//     //     }
-//     // })
-//     // console.log("User moviess----->",userMovies)
-//     res.render('movies/usermovies', { userMovies: productFromDB })
-//   })
-
-// });
 
 
 module.exports = router;
