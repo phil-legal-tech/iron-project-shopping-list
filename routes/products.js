@@ -30,18 +30,6 @@ router.get('/products', (req, res, next) => {
 
 //diplay all products on your shopping list
 
-// router.get('/products/shoppinglist', (req, res, next) => {
-
-//   const { id } = req.params;
-
-//   User.findById(id).populate('brand')
-//     .then(productsFromDB => {
-//       // console.log(droneToEdit);
-//       res.render('products/shoppinglist', {shoppinglist: productsFromDB});
-//     })
-//     .catch(error => console.log(`Error while getting a single product for edit: ${error}`));
-// });
-
 router.get('/products/shoppinglist', (req, res, next) => {
   User.findOne({ _id: req.session.user._id })
     .populate('shoppinglist')
@@ -55,7 +43,6 @@ router.get('/products/shoppinglist', (req, res, next) => {
 //create new product(s)
 
 router.get('/products/new', (req, res) => res.render('products/new'));
-
 
 router.post('/products/new', (req, res) => {
   console.log(req.body);
@@ -125,7 +112,7 @@ router.post('/products/:id/add', (req, res, next) => {
   User.findByIdAndUpdate(req.session.user._id, { $push: { shoppinglist: id } })
     .then((result) => {
       console.log("result ======>", result)
-      res.redirect('/products')
+      res.redirect(`/products?curent=${req.query.curent}&search=${req.query.search}`)
     })
     .catch(error => console.log(`Error while adding a product: ${error}`));
 });

@@ -3,9 +3,12 @@
 <ul>
   {{#each shoppinglist}}
     <li>
-        {{ this.brand }} 
+        BRAND: {{ this.brand }} 
+        NAME: {{ this.brand }} 
+        PRICE:
+        CATEGORY: 
         <p>
-      <form action="products/shoppinglist/{{this._id}}/delete" method="post"><button type="submit">Delete</button></form></a></p>
+      <form action="/products/shoppinglist/{{this._id}}/delete" method="post"><button type="submit">Delete</button></form></a></p>
     </li>
   {{/each}}
 </ul>
