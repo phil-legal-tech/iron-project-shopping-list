@@ -16,7 +16,7 @@ const saltRounds = 10;                  //delay preventing brute force attacs - 
 
 // });
 
-router.get('/community', (req, res, next) => {
+router.get('/', (req, res, next) => {
   res.render('community');
 });
 
@@ -32,7 +32,7 @@ router.post('/signUp', (req, res, next) => {
 
   User.create({ username: req.body.username, email: req.body.email, passwordHash: pwHash })
 
-    .then(() => res.redirect('/community'))
+    .then(() => res.redirect('/'))
 
 });
 
@@ -76,7 +76,7 @@ router.get('/protected', (req, res) => {
 
 router.post('/logout', (req, res) => {
   req.session.destroy();
-  res.redirect('/community');
+  res.redirect('/');
 });
 
 router.get('/concept', (req, res) => {
