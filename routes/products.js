@@ -5,13 +5,6 @@ const User = require('../models/User.model');
 
 const router = express.Router();
 
-// function Sum(){
-//   let SUM = +this.price;
-//   console.log(SUM);
-//   return Sum;
-// }
-// Sum();
-
 //diplay all products
 router.get('/products', (req, res, next) => {
 
@@ -47,7 +40,11 @@ router.get('/products/shoppinglist', (req, res, next) => {
     .populate({ path: 'shoppinglist', options: { sort: { category: 1 } } })
     .then(user => {
       console.log(user)
-      res.render('products/shoppinglist', { shoppinglist: user.shoppinglist })
+      let sum = 0;
+      user.shoppinglist.forEach(e => {
+        sum += e.price;
+      });
+      res.render('products/shoppinglist', { shoppinglist: user.shoppinglist, sum :  Math.round(100*sum)/100 })
     })
 
 });
