@@ -34,11 +34,6 @@ button {
   border-radius: 50%;
 }
 
-img{
-  height: 350px;
-  width:  200px;
-}
-
 
 #search {
   background-image: url('/css/searchicon.png'); /* Add a search icon to input */
@@ -62,7 +57,7 @@ article{
 
 .list-image{
   height: 3.4em;
-  width: 2.7em;
+  width: fix;
 }
 
 .detail-image{
