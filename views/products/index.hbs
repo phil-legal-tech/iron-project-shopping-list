@@ -21,9 +21,9 @@
     <th>
       Name
     </th>
-    <th>
+    {{!-- <th>
       Details
-    </th>
+    </th> --}}
     <th>
       Add
     </th>
@@ -51,10 +51,10 @@
       <form action="products/{{this._id}}/add?curent={{../curentPage}}&search={{../currentSearchTerm}}" method="post">
         <button type="submit" class="btn btn-dark">ADD</button></form>
     </td>
-    <td>
+    {{!-- <td>
       <form action="products/{{this._id}}/delete" method="post"><button type="submit" class="btn btn-danger">DO NOT
           USE</button></form>
-    </td>
+    </td> --}}
   </tr>
 
   {{/each}}
