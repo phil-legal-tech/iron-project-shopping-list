@@ -4,14 +4,16 @@
 
 {{/if}}
 
-<img src="avatar.png" alt="Avatar" class="avatar">
+<div class="list-group">
 
-<ul>
-  <li><a href="/concept">The Concept</a></li>
-  <li><b><a href="/products?curent=1">All Products</a></b></li>
+  <a href="/concept" class="list-group-item list-group-item-action list-group-item-light">The Concept</a>
+  <a href="/products?curent=1" class="list-group-item list-group-item-action list-group-item-light">All Products</a>
+  <a href="/products/shoppinglist" class="list-group-item list-group-item-action list-group-item-light">Your Shopping
+    List</a>
 
-</ul>
+
+</div>
 
 <form action="/logout" method="post">
-    <button type="submit">LOGOUT</button>
+  <p><button type="submit" class="btn btn-danger">LOGOUT</button></p>
 </form>

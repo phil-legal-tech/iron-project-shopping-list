@@ -1,12 +1,20 @@
-<h2>Products</h2>
-
 <form action="/products" method="get">
-  <input type="text" name="search" id="search" placeholder="Search for products..">
-  <button type="submit">Search</button>
+  <div class="form-group">
+    <label for="formGroupExampleInput">
+      <h2>Products</h2>
+    </label>
+    <p>
+      <input type="text" name="search" class="form-control" id="search" placeholder="Search for products..">
+      <button type="submit" class="btn btn-dark">Search</button>
+    </p>
+  </div>
 </form>
 
-<table id="productTable">
+<table class="table table-hover" id="productTable">
   <tr>
+    <th>
+      Picture
+    </th>
     <th>
       Brand
     </th>
@@ -17,6 +25,9 @@
       Details
     </th>
     <th>
+      Add
+    </th>
+    <th>
       Delete
     </th>
   </tr>
@@ -24,32 +35,38 @@
 
   <tr>
     <td>
+      <p><img class="list-image" src="{{this.image}}" alt="Artist picture"></p>
+    </td>
+    <td>
       <p><b>{{this.brand}}</b></p>
     </td>
     <td>
       <p>{{this.name}}</p>
     </td>
     <td>
-      <p><a href="/products/{{this._id}}">( Details )</a></p>
+      <p>
+        <button type="button" class="btn btn-outline-dark"><a href="/products/{{this._id}}">Details</a></button></p>
     </td>
     <td>
-      <p>
-      <form action="products/{{this._id}}/delete" method="post"><button type="submit">Delete</button></form></a></p>
+      <form action="products/{{this._id}}/add?curent={{../curentPage}}&search={{../currentSearchTerm}}" method="post">
+        <button type="submit" class="btn btn-dark">ADD</button></form>
     </td>
     <td>
-      <p>
-      <form action="products/{{this._id}}/add?curent={{../curentPage}}&search={{../currentSearchTerm}}" method="post"><button type="submit">ADD</button></form></a></p>
+      <form action="products/{{this._id}}/delete" method="post"><button type="submit" class="btn btn-danger">DO NOT
+          USE</button></form>
     </td>
   </tr>
 
   {{/each}}
-
 </table>
 
-<a href="/products?curent={{curentPage}}&search={{currentSearchTerm}}">next</a>
 
-<p><b><a href="/products/new">( Create a new product )</a></b></p>
+<p>
+<button type="button" class="btn btn-outline-dark"><a
+    href="/products?curent={{curentPage}}&search={{currentSearchTerm}}">Next</a></button>
+</p>
+<button type="button" class="btn btn-outline-dark"><a href="/products/shoppinglist">Your Shopping List</a></button>
 
-<p><b><a href="/products/shoppinglist">( To your shoppinglist )</a></b></p>
+<button type="button" class="btn btn-outline-dark"><a href="/products/new">Create a new product</a></button>
 
-<p><b><a href="/protected">( Back home )</a></b></p>
+<button type="button" class="btn btn-outline-dark"><a href="/protected">Back Home</a></button>

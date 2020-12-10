@@ -1,21 +1,18 @@
-<h1>Be part of the community. Register now!</h1>
-
+<h3>Be part of the community. Register now!</h3>
+<div id="form"></div>
 <form action="/signUp" method="post">
-    <p>
-        <label for="name-input">Userame:</label>
-        <input type="text" name="username" id="name-input" />
-    </p>
-    <p>
-        <label for="email-input">Email:</label>
-        <input type="text" name="email" id="email-input" />
-    </p>
-    <p>
-        <label for="password-input">Password:</label>
-        <input type="password" name="passwordHash" id="password-input" />
-    </p>
-    <p>
-        <button type="submit">Create</button>
-    </p>
-</form>
 
-<p><b><a href="/">( Back home )</a></b></p>
+    <label for="name-input">Userame:</label>
+    <input type="text" name="username" class="form-control" id="name-input" />
+
+    <label for="email-input">Email:</label>
+    <input type="text" name="email" class="form-control" id="email-input" />
+
+    <label for="password-input">Password:</label>
+    <input type="password" name="passwordHash" class="form-control" id="password-input" />
+
+
+    <button type="submit" class="btn btn-success">Create</button>
+    <button type="button" class="btn btn-dark"><a href="/community">Back</a></button>
+</form>
+</div>

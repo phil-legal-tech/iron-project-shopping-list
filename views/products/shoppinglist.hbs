@@ -1,18 +1,48 @@
 <h2>YOUR SHOPPINGLIST</h2>
 
-<ul>
-  {{#each shoppinglist}}
-    <li>
-        BRAND: {{ this.brand }} 
-        NAME: {{ this.name}} 
-        PRICE: {{ this.price}} 
-        CATEGORY: {{ this.category}} 
-        <p>
-      <form action="/products/shoppinglist/{{this._id}}/delete" method="post"><button type="submit">Delete</button></form></a></p>
-    </li>
-  {{/each}}
-</ul>
 
-<p><b><a href="/products/new">( Create a new Product )</a></b></p>
+<table class="table table-condensed table-hover">
+  <thead>
+    <tr>
+      <th scope="col">CATEGORY</th>
+      <th scope="col">IMAGE</th>
+      <th scope="col">BRAND</th>
+      <th scope="col">NAME</th>
+      <th scope="col">PRICE in EUR</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each shoppinglist}}
+    <tr>
+      <th scope="row"><b>{{this.category}}</b></th>
+      <td><img class="list-image" src="{{this.image}}" alt="Artist picture"></td>
+      <td>{{ this.brand }}</td>
+      <td>{{ this.name}}</td>
+      <td>{{ this.price}}</td>
+      <td>
+        <form action="/products/shoppinglist/{{this._id}}/delete" method="post"><button type="submit"
+            class="btn btn-danger">Got it!</button></form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+  {{!-- <tr>
+    <th scope="row"><b>SUM</b></th>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>{{#each shoppinglist}}
+      {{SUM}}
+      {{/each}}
+    </td>
+    <td>
+    </td>
+  </tr> --}}
+</table>
+</table>
 
-<p><b><a href="/products">Back to the product list</a></b></p>
+<button type="button" class="btn btn-outline-dark"><a href="/products">Back to Products</a></button>
+<button type="button" class="btn btn-outline-dark"><a href="/protected">Back Home</a></button>
+<form action="/logout" method="post">
+  <p><button type="submit" class="btn btn-danger">LOGOUT</button></p>
+</form>

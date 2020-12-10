@@ -10,11 +10,11 @@ const saltRounds = 10;                  //delay preventing brute force attacs - 
 
 // GET home page
 
-router.get('/', (req, res, next) => {
+// router.get('/', (req, res, next) => {
 
-  res.render('index')
+//   res.render('index')
 
-});
+// });
 
 router.get('/community', (req, res, next) => {
   res.render('community');
@@ -85,15 +85,6 @@ router.get('/concept', (req, res) => {
 
 });
 
-// router.get('/main', (req, res) => {
-//   res.render('main')
-// });
 
-
-
-
-// router.get('/private', (req, res) => {
-//   res.render('private')
-// });
 
 module.exports = router;

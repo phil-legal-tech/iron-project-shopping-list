@@ -1,37 +1,41 @@
-<h2>Product Details</h2>
+<p><b>Product Details</b></p>
 
-<h3><b>{{name}}</b></h3>
-<table>
-  <tr>
-    <td>
-      <p><img src="{{image}}" alt="product image"></p>
-    </td>
-    <td>
-      <table>
-        <tr>
-          <td>brand:</td>
-          <td>{{brand}}</td>
-        </tr>
-        <tr>
-          <td>weight:</td>
-          <td>{{weight}}</td>
-        </tr>
-        <tr>
-          <td>price:</td>
-          <td>{{price}} EUR</td>
-        </tr>
-        <tr>
-          <td>category:</td>
-          <td>{{category}}</td>
-        </tr>
-        <tr>
-          <td>
-            <p><button><a href="{{link}}">Link to Kaufland Page</a></button></p>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Property</th>
+      <th scope="col">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Image:</th>
+      <td><b><img class="detail-image" src="{{image}}" alt="product image"></b></td>
+    </tr>
+     <tr>
+      <th scope="row">Name:</th>
+      <td><b>{{name}}</b></td>
+    </tr>
+    <tr>
+      <th scope="row">Brand:</th>
+      <td>{{brand}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Price:</th>
+      <td>{{price}} EUR</td>
+    </tr>
+    <tr>
+      <th scope="row">Category:</th>
+      <td>{{category}}</td>
+    </tr>
+    <tr>
+      <th scope="row">Weight:</th>
+      <td>{{weight}}</td>
+    </tr>
+  </tbody>
 </table>
-<p><a href="/products">Back to the product list</a></p>
-<p><a href="/products/{{this._id}}/edit">Edit</a></p>
+
+<button type="button" class="btn btn-outline-dark"><a href="{{link}}">Link to Kaufland Page</a></button>
+<button type="button" class="btn btn-outline-dark"><a href="/products/{{this._id}}/edit">Edit</a></button>
+<button type="button" class="btn btn-outline-dark"><a
+    href="/products?curent={{curentPage}}&search={{currentSearchTerm}}">Back To Products</a></button>

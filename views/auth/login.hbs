@@ -1,22 +1,22 @@
+<h3>Login</h3>
 <div id="form">
-    <h2>Login</h2>
-    <form action="/login" method="POST">
 
+    <form action="/login" method="POST">
+        <div class="form-group"></div>
         <label for="input-username">User:</label>
-        <input type="username" id="input-username" name="username" placeholder="Your username" />
+        <input type="username" class="form-control" id="input-username" name="username" placeholder="Your username" />
 
         <label for="input-email">Email:</label>
-        <input type="text" id="input-email" name="email" placeholder="Your email" />
+        <input type="text" class="form-control" id="input-email" name="email" placeholder="Your email" />
 
         <label for="input-password">Password:</label>
-        <input type="password" name="passwordHash" id="passwordHash" placeholder="********" />
+        <input type="password" name="passwordHash" class="form-control" id="passwordHash" placeholder="********" />
 
-        <button type="submit">Login</button>
+        <button type="submit" class="btn btn-primary">Go!</button>
 
+        <button type="button" class="btn btn-dark"><a href="/community">Back</a></button>
         {{#if errorMessage}}
         <p class="error">{{errorMessage}}</p>
         {{/if}}
     </form>
 </div>
-
-<p><b><a href="/">( Back home )</a></b></p>

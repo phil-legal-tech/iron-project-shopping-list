@@ -5,6 +5,12 @@ const User = require('../models/User.model');
 
 const router = express.Router();
 
+// function Sum(){
+//   let SUM = +this.price;
+//   console.log(SUM);
+//   return Sum;
+// }
+// Sum();
 
 //diplay all products
 router.get('/products', (req, res, next) => {
@@ -13,18 +19,24 @@ router.get('/products', (req, res, next) => {
   let curentPage = parseInt(req.query.curent)
   if (!curentPage) { curentPage = 0 }
 
-  if (search == undefined) {
-    // let curentPage = parseInt(req.query.curent)
-    Product.find().limit(10).skip(curentPage * 10).sort({ brand: 1 }).then((productFromDB) => {
-      // console.log(productFromDB)
-      res.render('products/index', { products: productFromDB, curentPage: curentPage + 1 })
-    })
-      .catch(error => `Error while creating a new product: ${error}`);
+  if (!req.session.user) {
+    res.redirect('/login')
   } else {
-    Product.find({ $or: [{ brand: { $regex: ".*" + search + ".*", $options: "i" } }, { name: { $regex: ".*" + search + ".*", $options: "i" } }] }).limit(10).skip(curentPage * 10).sort({ brand: 1 }).then((productFromDB) => {
-      // console.log(productFromDB)
-      res.render('products/index', { products: productFromDB, curentPage: curentPage + 1, currentSearchTerm: search })
-    })
+
+
+    if (search == undefined) {
+      // let curentPage = parseInt(req.query.curent)
+      Product.find().limit(7).skip(curentPage * 7).sort({ brand: 1 }).then((productFromDB) => {
+        // console.log(productFromDB)
+        res.render('products/index', { products: productFromDB, curentPage: curentPage + 1 })
+      })
+        .catch(error => `Error while creating a new product: ${error}`);
+    } else {
+      Product.find({ $or: [{ brand: { $regex: ".*" + search + ".*", $options: "i" } }, { name: { $regex: ".*" + search + ".*", $options: "i" } }] }).limit(7).skip(curentPage * 7).sort({ brand: 1 }).then((productFromDB) => {
+        // console.log(productFromDB)
+        res.render('products/index', { products: productFromDB, curentPage: curentPage + 1, currentSearchTerm: search })
+      })
+    }
   }
 });
 
@@ -32,7 +44,7 @@ router.get('/products', (req, res, next) => {
 
 router.get('/products/shoppinglist', (req, res, next) => {
   User.findOne({ _id: req.session.user._id })
-    .populate({ path: 'shoppinglist', options:  { sort: { category: 1 } }})
+    .populate({ path: 'shoppinglist', options: { sort: { category: 1 } } })
     .then(user => {
       console.log(user)
       res.render('products/shoppinglist', { shoppinglist: user.shoppinglist })
@@ -86,7 +98,7 @@ router.post('/products/:id/edit', (req, res, next) => {
 
   Product.findByIdAndUpdate(id, { name, brand, price, weight, category }, { new: true })
     .then(() => {
-      res.redirect('/products')
+      res.redirect(`/products/${id}`)
     })
 
     .catch(error => console.log(`Error while updating a single product: ${error}`));
@@ -130,7 +142,6 @@ router.post('/products/shoppinglist/:id/delete', (req, res, next) => {
     })
     .catch(error => console.log(`Error while adding a product: ${error}`));
 });
-
 
 
 module.exports = router;
