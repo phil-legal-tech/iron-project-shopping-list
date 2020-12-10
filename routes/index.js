@@ -32,7 +32,7 @@ router.post('/signUp', (req, res, next) => {
 
   User.create({ username: req.body.username, email: req.body.email, passwordHash: pwHash })
 
-    .then(() => res.redirect('/'))
+    .then(() => res.redirect('/login'))
 
 });
 

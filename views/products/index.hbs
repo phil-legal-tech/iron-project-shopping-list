@@ -3,10 +3,10 @@
     <label for="formGroupExampleInput">
       <h2>Products</h2>
     </label>
-    <p>
+    <div>
       <input type="text" name="search" class="form-control" id="search" placeholder="Search for products..">
       <button type="submit" class="btn btn-dark">Search</button>
-    </p>
+    </div>
   </div>
 </form>
 
@@ -62,9 +62,10 @@
 
 
 <p>
-<button type="button" class="btn btn-outline-dark"><a
-    href="/products?curent={{curentPage}}&search={{currentSearchTerm}}">Next</a></button>
+  <button type="button" class="btn btn-outline-dark"><a
+      href="/products?curent={{curentPage}}&search={{currentSearchTerm}}">Next</a></button>
 </p>
+
 <button type="button" class="btn btn-outline-dark"><a href="/products/shoppinglist">Your Shopping List</a></button>
 
 <button type="button" class="btn btn-outline-dark"><a href="/products/new">Create a new product</a></button>
